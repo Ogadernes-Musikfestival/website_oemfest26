@@ -12,6 +12,14 @@ export const HEGN_SLOTS = [
   { id: "6", label: "20:30 – 23:00" },
 ];
 
+const OMRAADE_LABELS: Record<string, string> = {
+  HEGNVAGT: "Hegnsvagt",
+  OPSAETNING: "Opstilling",
+  NEDTAGNING: "Nedtagning",
+  DIVERSE: "Diverse",
+  LEDIG: "Det er ligegyldigt, jeg vil bare være med",
+};
+
 interface SignupFormProps {
   onSuccess?: () => void;
 }
@@ -79,13 +87,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
                 Hvor ønsker du at hjælpe?
               </h4>
               <div className="flex flex-wrap gap-4">
-                {[
-                  "HEGNVAGT",
-                  "OPSAETNING",
-                  "NEDTAGNING",
-                  "DIVERSE",
-                  "LEDIG",
-                ].map((omraade) => (
+                {Object.keys(OMRAADE_LABELS).map((omraade) => (
                   <label
                     key={omraade}
                     className={`border-neonGreen flex cursor-pointer items-center gap-2 rounded-md border-2 p-2 ${
@@ -102,7 +104,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
                       checked={selectedOmraade === omraade}
                       onChange={() => handleOmraadeChange(omraade)}
                     />
-                    {omraade}
+                    {OMRAADE_LABELS[omraade]}
                   </label>
                 ))}
               </div>
