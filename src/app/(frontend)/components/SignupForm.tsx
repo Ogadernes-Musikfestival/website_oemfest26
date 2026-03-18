@@ -106,36 +106,47 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
                   </label>
                 ))}
               </div>
-
               {selectedOmraade === "HEGNVAGT" && (
-                <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                  {HEGN_SLOTS.map((slot) => (
-                    <label
-                      key={slot.id}
-                      className={`border-neonGreen flex cursor-pointer items-center rounded-md border-2 p-2 ${
-                        selectedSlot === slot.id
-                          ? "bg-neonGreen text-dark"
-                          : "hover:bg-neonGreen"
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="slotId"
-                        value={slot.id}
-                        className="hidden"
-                        checked={selectedSlot === slot.id}
-                        onChange={() => setSelectedSlot(slot.id)}
-                      />
-                      {slot.label}
-                    </label>
-                  ))}
+                <div className="col-span-full mt-12">
+                  <h4 className="border-purple mb-4 border-b-4 text-xl">
+                    Ønsket tidspunkt for hegnsvagt
+                  </h4>
+
+                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                    {HEGN_SLOTS.map((slot) => (
+                      <label
+                        key={slot.id}
+                        className={`border-neonGreen flex cursor-pointer items-center rounded-md border-2 p-2 ${
+                          selectedSlot === slot.id
+                            ? "bg-neonGreen text-dark"
+                            : "hover:bg-neonGreen"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="slotId"
+                          value={slot.id}
+                          className="hidden"
+                          checked={selectedSlot === slot.id}
+                          onChange={() => setSelectedSlot(slot.id)}
+                        />
+                        {slot.label}
+                      </label>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
 
+            <div className="col-span-full mt-12">
+              <h4 className="border-purple border-b-4 text-xl">
+                Er der andet vi skal vide?
+              </h4>
+            </div>
+
             <textarea
               name="kommentar"
-              placeholder="Kommentar"
+              placeholder="Hvem vil du evt dele vagt med.. Hvilket tidspunkt kan du bedst.. osv osv. "
               className="border-purple col-span-full h-48 border border-b-4 px-2 py-2"
             />
 

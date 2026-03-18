@@ -23,7 +23,7 @@ const AccordianFrivillig = async () => {
           className="border-light border-t border-b"
         >
           <Accordion.Header>
-            <Accordion.Trigger className="group hover:bg-light text-neonGreen hover:text-purple flex w-full justify-between pt-12 pb-10 pl-4 text-4xl">
+            <Accordion.Trigger className="group hover:bg-light text-neonGreen hover:text-purple flex w-full justify-between pt-12 pb-10 pl-4 text-2xl md:text-4xl">
               {item.title} ({item.dag})
               <PlusIcon className="mr-4 size-6 shrink-0 transition-all ease-out group-data-pane-open:scale-110 group-data-panel-open:rotate-45" />
             </Accordion.Trigger>

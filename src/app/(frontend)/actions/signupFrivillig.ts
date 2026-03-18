@@ -37,7 +37,7 @@ export async function signupFrivillig(formData: FormData) {
   }
 
   // 2️⃣ Send validated data to the external API
-  const res = await fetch("http://localhost:3001/api/external-signup", {
+  const res = await fetch("https://frivillige.vercel.app/api/external-signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
