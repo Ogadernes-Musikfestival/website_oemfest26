@@ -11,6 +11,7 @@ function PlusIcon(props: React.ComponentProps<"svg">) {
 
 const AccordianFrivillig = async () => {
   const frivilligData = await getFrivilligData();
+
   return (
     <Accordion.Root>
       <h1 className="heading mt-[5vh] mb-16 max-w-1/2 text-5xl lg:mt-[15vh]">

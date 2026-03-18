@@ -7,6 +7,7 @@ export async function getFrivilligData() {
   const data = await payload.find({
     collection: "frivillige",
     depth: 1,
+    sort: "dag",
   });
 
   return data.docs;
