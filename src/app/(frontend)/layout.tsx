@@ -1,22 +1,44 @@
-import React from 'react'
-import './globals.css'
+import React from "react";
+import "./globals.css";
+import { Space_Mono, Unbounded } from "next/font/google";
+
+import CTAfrivillig from "./components/CTAfrivillig";
+
+import { getSiteSettings } from "./lib/getSiteSettings";
+import Footer from "./components/Footer";
 
 export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
-}
+  description: "Øgadernes Musikfestival 2026",
+  title: "ØMFEST 2026",
+};
+
+const spaceMono = Space_Mono({
+  weight: ["400", "700"],
+  style: "normal",
+  subsets: ["latin"],
+  variable: "--font-spacemono",
+});
+
+const unbounded = Unbounded({
+  weight: ["900"],
+  style: "normal",
+  subsets: ["latin"],
+  variable: "--font-unbounded",
+});
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
-  const { children } = props
+  const settings = await getSiteSettings();
+  const { children } = props;
 
   return (
-    <html lang="en">
-      <body>
-        <main>
+    <html lang="en" className={`${spaceMono.className} ${unbounded.variable}`}>
+      <body className="bg-purple h-dvh bg-[url('/oem-bg-2.jpg')] bg-cover bg-fixed bg-center px-8 text-white md:px-24">
+        <main className="root mb-12 md:mb-24 lg:mb-56">
           {children}
-          <h1 className="">Tankstaion</h1>
+          <CTAfrivillig />
         </main>
+        <Footer />
       </body>
     </html>
-  )
+  );
 }

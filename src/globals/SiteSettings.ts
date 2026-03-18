@@ -1,39 +1,21 @@
-import type { CollectionConfig } from "payload";
+import { GlobalConfig } from "payload";
 
-export const Bands: CollectionConfig = {
-  slug: "bands",
-
+export const SiteSettings: GlobalConfig = {
+  slug: "site-settings",
+  admin: {
+    group: "Settings",
+  },
   fields: [
     {
-      type: "row",
-      fields: [
-        {
-          name: "title",
-          type: "text",
-          label: "Bandnavn",
-          admin: {
-            width: "25%",
-          },
-        },
-
-        {
-          name: "spilletidspunkt",
-          type: "text",
-          admin: {
-            width: "15%",
-            placeholder: "ex. 11.45",
-          },
-        },
-      ],
+      name: "siteName",
+      type: "text",
     },
-
     {
-      name: "bandbillede",
+      name: "logo",
       type: "upload",
-
       relationTo: "media",
+      required: true,
     },
-
     {
       name: "social media",
       type: "group",

@@ -1,1 +1,38 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+
+@theme {
+  --color-*: initial;
+  --color-neonGreen: #1eff96;
+  --color-light: #ddb8fc;
+  --color-purple: #6c4aa3;
+  --color-dark: #1a0d36;
+  --color-white: #ffffff;
+  --coler-grey: #cccccc;
+}
+
+.root {
+  isolation: isolate;
+}
+
+.heading {
+  font-family: var(--font-unbounded), sans-serif;
+}
+
+.heading-responsive {
+  font-size: clamp(3.5rem, 12vw + 1rem, 20rem);
+  line-height: 0.85;
+}
+
+.heading-responsive-small {
+  font-size: clamp(2.5rem, 8vw + 1rem, 12rem);
+  @apply leading-none md:leading-[0.85];
+}
+
+h2 {
+  @apply text-3xl md:text-4xl lg:text-5xl;
+}
+
+p {
+  font-family: var(--font-spacemono), sans-serif;
+  @apply sm:text-xl;
+}

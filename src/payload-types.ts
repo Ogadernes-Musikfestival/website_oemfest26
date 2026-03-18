@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    bands: Band;
+    frivillige: Frivillige;
+    sponsor: Sponsor;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +81,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    bands: BandsSelect<false> | BandsSelect<true>;
+    frivillige: FrivilligeSelect<false> | FrivilligeSelect<true>;
+    sponsor: SponsorSelect<false> | SponsorSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -87,8 +93,14 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'site-settings': SiteSetting;
+    'frivillig-page': FrivilligPage;
+  };
+  globalsSelect: {
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'frivillig-page': FrivilligPageSelect<false> | FrivilligPageSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -161,6 +173,52 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bands".
+ */
+export interface Band {
+  id: string;
+  title?: string | null;
+  spilletidspunkt?: string | null;
+  bandbillede?: (string | null) | Media;
+  'social media'?: {
+    spotify?: string | null;
+    instagram?: string | null;
+    facebook?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "frivillige".
+ */
+export interface Frivillige {
+  id: string;
+  title: string;
+  dag?: ('Fre' | 'Lør' | 'Søn') | null;
+  timer?: string | null;
+  checkin?: string | null;
+  primæropgave?: string | null;
+  featuredImage?: (string | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Sponsor & Samarbejder
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sponsor".
+ */
+export interface Sponsor {
+  id: string;
+  title?: string | null;
+  type?: ('Sponsor' | 'Samarbejde') | null;
+  logo?: (string | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -190,6 +248,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'bands';
+        value: string | Band;
+      } | null)
+    | ({
+        relationTo: 'frivillige';
+        value: string | Frivillige;
+      } | null)
+    | ({
+        relationTo: 'sponsor';
+        value: string | Sponsor;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -275,6 +345,49 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bands_select".
+ */
+export interface BandsSelect<T extends boolean = true> {
+  title?: T;
+  spilletidspunkt?: T;
+  bandbillede?: T;
+  'social media'?:
+    | T
+    | {
+        spotify?: T;
+        instagram?: T;
+        facebook?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "frivillige_select".
+ */
+export interface FrivilligeSelect<T extends boolean = true> {
+  title?: T;
+  dag?: T;
+  timer?: T;
+  checkin?: T;
+  primæropgave?: T;
+  featuredImage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sponsor_select".
+ */
+export interface SponsorSelect<T extends boolean = true> {
+  title?: T;
+  type?: T;
+  logo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -312,6 +425,108 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: string;
+  siteName?: string | null;
+  logo: string | Media;
+  'social media'?: {
+    spotify?: string | null;
+    instagram?: string | null;
+    facebook?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "frivillig-page".
+ */
+export interface FrivilligPage {
+  id: string;
+  heading?: string | null;
+  layout?:
+    | (
+        | {
+            heading?: string | null;
+            content: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'text';
+          }
+        | {
+            images?:
+              | {
+                  image: string | Media;
+                  caption?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'gallery';
+          }
+      )[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  siteName?: T;
+  logo?: T;
+  'social media'?:
+    | T
+    | {
+        spotify?: T;
+        instagram?: T;
+        facebook?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "frivillig-page_select".
+ */
+export interface FrivilligPageSelect<T extends boolean = true> {
+  heading?: T;
+  layout?:
+    | T
+    | {
+        text?:
+          | T
+          | {
+              heading?: T;
+              content?: T;
+              id?: T;
+              blockName?: T;
+            };
+        gallery?:
+          | T
+          | {
+              images?:
+                | T
+                | {
+                    image?: T;
+                    caption?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
