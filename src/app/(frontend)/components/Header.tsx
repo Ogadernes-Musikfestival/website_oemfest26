@@ -16,15 +16,13 @@ const Header = async () => {
 
       <div className="text-center">
         <Link href="/">
-          {logo && typeof logo !== "string" && (
-            <Image
-              src={logo.url!}
-              alt={settings.siteName || "Logo"}
-              width={140}
-              height={60}
-              className="h-10 w-auto"
-            />
-          )}
+          <Image
+            src="/marker-no-bg.svg"
+            alt="Logo"
+            width={120}
+            height={120}
+            className="h-10 w-auto"
+          />
         </Link>
       </div>
       <p>#oemfest</p>
