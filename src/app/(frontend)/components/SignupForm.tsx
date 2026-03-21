@@ -47,7 +47,9 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
 
             await signupFrivillig(formData);
 
-            setMessage("Tak! Din tilmelding er modtaget.");
+            setMessage(
+              "Tak! Din tilmelding er modtaget. Du vil modtage yderligere info om dagen på email.",
+            );
             setSubmitted(true);
 
             if (onSuccess) {
