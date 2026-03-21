@@ -16,7 +16,6 @@ const OMRAADE_LABELS: Record<string, string> = {
   HEGNVAGT: "Hegnsvagt",
   OPSAETNING: "Opstilling",
   NEDTAGNING: "Nedtagning",
-  DIVERSE: "Diverse",
   LEDIG: "Det er ligegyldigt, jeg vil bare være med",
 };
 

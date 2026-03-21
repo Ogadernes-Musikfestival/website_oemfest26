@@ -16,6 +16,12 @@ export const SiteSettings: GlobalConfig = {
       relationTo: "media",
       required: true,
     },
+
+    {
+      name: "hasktag",
+      type: "text",
+      label: "ØM hasktag",
+    },
     {
       name: "social media",
       type: "group",

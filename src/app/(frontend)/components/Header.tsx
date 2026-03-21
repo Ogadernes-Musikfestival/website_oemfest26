@@ -25,7 +25,7 @@ const Header = async () => {
           />
         </Link>
       </div>
-      <p>#oemfest</p>
+      <p>#ømfest</p>
     </header>
   );
 };

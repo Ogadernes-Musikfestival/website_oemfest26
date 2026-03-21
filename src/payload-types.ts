@@ -434,6 +434,7 @@ export interface SiteSetting {
   id: string;
   siteName?: string | null;
   logo: string | Media;
+  hasktag?: string | null;
   'social media'?: {
     spotify?: string | null;
     instagram?: string | null;
@@ -482,6 +483,7 @@ export interface FrivilligPage {
 export interface SiteSettingsSelect<T extends boolean = true> {
   siteName?: T;
   logo?: T;
+  hasktag?: T;
   'social media'?:
     | T
     | {
