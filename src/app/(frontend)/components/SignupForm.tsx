@@ -153,7 +153,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
               className="border-purple col-span-full h-48 border border-b-4 px-2 py-2"
             />
 
-            <div className="col-span-full mt-4">
+            <div className="col-span-full mt-4 mb-12">
               <button
                 type="submit"
                 className="bg-purple cursor-pointer px-8 py-2 text-white"
