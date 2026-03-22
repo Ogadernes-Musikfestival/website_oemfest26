@@ -156,7 +156,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
             <div className="col-span-full mt-4">
               <button
                 type="submit"
-                className="bg-purple px-8 py-2 text-white"
+                className="bg-purple cursor-pointer px-8 py-2 text-white"
                 disabled={loading}
               >
                 {loading ? "Sender..." : "Tilmeld"}
