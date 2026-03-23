@@ -4,6 +4,7 @@ import React from "react";
 import Header from "./Header";
 import { Button } from "@base-ui/react";
 import TriggerButton from "./TriggerButton";
+import TriggerButtonMobile from "./TriggerButtonMobile";
 
 const Hero = () => {
   return (
@@ -16,7 +17,14 @@ const Hero = () => {
       </h1>
 
       <div className="flex justify-center gap-x-4">
-        <TriggerButton />
+        <div className="block lg:hidden">
+          <TriggerButtonMobile />
+        </div>
+
+        <div className="hidden lg:block">
+          <TriggerButton />
+        </div>
+
         <Link href="/frivillig">
           <Button className="border-neonGreen hover:text-dark cursor-pointer border-2 px-8 py-2 hover:border-white hover:bg-white">
             Læs om opgaverne

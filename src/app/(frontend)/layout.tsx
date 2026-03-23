@@ -6,6 +6,7 @@ import CTAfrivillig from "./components/CTAfrivillig";
 
 import { getSiteSettings } from "./lib/getSiteSettings";
 import Footer from "./components/Footer";
+import CTAfrivilligMobile from "./components/CTAfrivilligMobile";
 
 export const metadata = {
   description: "Øgadernes Musikfestival 2026",
@@ -35,7 +36,12 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       <body className="bg-purple h-dvh bg-[url('/oem-bg-2.jpg')] bg-cover bg-fixed bg-center px-8 text-white md:px-24">
         <main className="root mb-12 md:mb-24 lg:mb-56">
           {children}
-          <CTAfrivillig />
+          <div className="block lg:hidden">
+            <CTAfrivilligMobile />
+          </div>
+          <div className="hidden lg:block">
+            <CTAfrivillig />
+          </div>
         </main>
         <Footer />
       </body>
