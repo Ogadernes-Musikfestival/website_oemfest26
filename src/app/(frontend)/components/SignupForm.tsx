@@ -4,12 +4,12 @@ import { useState } from "react";
 import { signupFrivillig } from "../actions/signupFrivillig";
 
 export const HEGN_SLOTS = [
-  { id: "1", label: "10:30 – 13:00" },
-  { id: "2", label: "12:30 – 15:00" },
-  { id: "3", label: "14:30 – 17:00" },
-  { id: "4", label: "16:30 – 19:00" },
-  { id: "5", label: "18:30 – 21:00" },
-  { id: "6", label: "20:30 – 23:00" },
+  { id: "1", label: "11:00 – 13:30" },
+  { id: "2", label: "13:00 – 15:30" },
+  { id: "3", label: "15:00 – 17:30" },
+  { id: "4", label: "17:00 – 19:30" },
+  { id: "5", label: "19:00 – 21:30" },
+  { id: "6", label: "21:00 – 23:30" },
 ];
 
 const OMRAADE_LABELS: Record<string, string> = {
@@ -61,26 +61,26 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
             setLoading(false);
           }
         }}
-        className="grid grid-cols-4 gap-8"
+        className="grid grid-cols-4 gap-4 md:gap-8"
       >
         {!submitted && (
           <>
             <input
               name="navn"
               placeholder="Navn"
-              className="border-purple col-span-full border border-b-4 px-2 py-2 sm:col-span-2"
+              className="border-purple col-span-full border border-b-4 px-2 py-2 focus:scroll-mt-32 sm:col-span-2"
               required
             />
             <input
               name="email"
               placeholder="Email"
-              className="border-purple col-span-full border border-b-4 px-2 py-2 sm:col-span-2"
+              className="border-purple col-span-full border border-b-4 px-2 py-2 focus:scroll-mt-32 sm:col-span-2"
               required
             />
             <input
               name="telefon"
               placeholder="Telefon"
-              className="border-purple col-span-full border border-b-4 px-2 py-2 sm:col-span-2"
+              className="border-purple col-span-full border border-b-4 px-2 py-2 focus:scroll-mt-32 sm:col-span-2"
             />
 
             <div className="col-span-full mt-12">
