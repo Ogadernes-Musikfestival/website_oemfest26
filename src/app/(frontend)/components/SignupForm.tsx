@@ -4,7 +4,7 @@ import { useState } from "react";
 import { signupFrivillig } from "../actions/signupFrivillig";
 
 export const HEGN_SLOTS = [
-  { id: "1", label: "11:00 – 13:30" },
+  { id: "1", label: "11:30 – 13:30" },
   { id: "2", label: "13:00 – 15:30" },
   { id: "3", label: "15:00 – 17:30" },
   { id: "4", label: "17:00 – 19:30" },
