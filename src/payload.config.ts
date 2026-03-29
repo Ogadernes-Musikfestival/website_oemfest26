@@ -57,7 +57,7 @@ export default buildConfig({
       collections: {
         media: {
           generateFileURL: ({ filename }) =>
-            `https://pub-3183ab0415bd4d6f91c056caa432f027.r2.dev/${filename}"`,
+            `${process.env.S3_ACCOUNT_ID}/${process.env.S3_BUCKET}/${filename}`,
         },
       },
       bucket: process.env.S3_BUCKET || "",
@@ -68,6 +68,7 @@ export default buildConfig({
         },
         region: "auto",
         endpoint: process.env.S3_ENDPOINT || "",
+        forcePathStyle: true,
       },
     }),
   ],
