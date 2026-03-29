@@ -1,5 +1,9 @@
 import { withPayload } from "@payloadcms/next/withPayload";
 
+const urls = [
+  new URL("https://pub-3183ab0415bd4d6f91c056caa432f027.r2.dev/**"),
+];
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
@@ -17,6 +21,10 @@ const nextConfig = {
     };
 
     return webpackConfig;
+  },
+
+  images: {
+    remotePatterns: urls,
   },
 };
 
