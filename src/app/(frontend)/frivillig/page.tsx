@@ -3,7 +3,8 @@ import AccordianFrivillig from "../components/AccordianFrivillig";
 import TriggerButton from "../components/TriggerButton";
 import Header from "../components/Header";
 import { getFrivilligPage } from "../lib/getFrivilligPage";
-import Image from "next/image";
+
+import HeroFrivillig from "../components/HeroFrivillig";
 
 const page = async () => {
   const data = await getFrivilligPage();
@@ -14,15 +15,10 @@ const page = async () => {
         <Header />
       </div>
 
-      <div className="mt-[5vh] grid grid-cols-6 md:mt-[15vh]">
-        <div className="col-span-6 mb-12 grid grid-cols-subgrid md:mb-24">
-          <h1 className="heading heading-responsive-small text-9xl uppercase">
-            Ingen ØMFEST <br />
-            uden frivillige
-          </h1>
-        </div>
+      <HeroFrivillig />
 
-        <aside className="col-span-full mb-20 lg:col-span-3">
+      <div className="relative grid grid-cols-6 md:mt-[5vh]">
+        <aside className="col-span-full mb-24 lg:col-span-3">
           {/* Render only TextBlocks */}
           {data.layout
             ?.filter((block) => block.blockType === "text")

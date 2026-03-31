@@ -33,7 +33,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="en" className={`${spaceMono.className} ${unbounded.variable}`}>
-      <body className="bg-purple h-dvh bg-[url('/oem-bg-2.jpg')] bg-cover bg-fixed bg-center px-8 text-white md:px-24">
+      <body className="bg-purple bg-[url('/oem-bg-2.jpg')] bg-cover bg-fixed bg-center px-8 text-white md:px-24">
         <main className="root mb-12 md:mb-24 lg:mb-56">
           {children}
           <div className="block lg:hidden">
