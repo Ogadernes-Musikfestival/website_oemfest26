@@ -46,10 +46,19 @@ export async function signupFrivillig(formData: FormData) {
     body: JSON.stringify(parsed.data),
   });
 
+  const result = await res.json();
+
   if (!res.ok) {
-    throw new Error("Der skete en fejl ved tilmelding");
+    return {
+      success: false,
+      message: result.error || "Der skete en fejl ved tilmelding",
+    };
   }
 
-  // 3️⃣ Return a success message for the UI
-  return "Tilmelding lykkedes!";
+  return {
+    success: true,
+    message:
+      result.message ||
+      "Tak! Din tilmelding er modtaget. Du vil modtage yderligere info om dagen på email.",
+  };
 }

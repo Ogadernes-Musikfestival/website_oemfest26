@@ -29,6 +29,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleOmraadeChange = (value: string) => {
     setSelectedOmraade(value);
@@ -39,29 +40,29 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
     <>
       <form
         action={async (formData: FormData) => {
+          if (loading) return;
           setLoading(true);
-          try {
-            if (selectedOmraade === "HEGNVAGT" && selectedSlot) {
-              formData.set("slotId", selectedSlot);
-            }
 
-            await signupFrivillig(formData);
+          if (selectedOmraade === "HEGNVAGT" && selectedSlot) {
+            formData.set("slotId", selectedSlot);
+          }
 
-            setMessage(
-              "Tak! Din tilmelding er modtaget. Du vil modtage yderligere info om dagen på email.",
-            );
+          const res = await signupFrivillig(formData);
+
+          setMessage(res.message);
+          setIsError(!res.success);
+
+          if (res.success) {
             setSubmitted(true);
 
             if (onSuccess) {
               setTimeout(() => onSuccess(), 3000);
             }
-          } catch (err: any) {
-            setMessage(`Fejl: ${err.message}`);
-          } finally {
-            setLoading(false);
           }
+
+          setLoading(false);
         }}
-        className="grid grid-cols-4 gap-4 md:gap-8"
+        className={`grid grid-cols-4 gap-4 md:gap-8 ${loading ? "pointer-events-none opacity-70" : ""}`}
       >
         {!submitted && (
           <>
@@ -156,11 +157,19 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
             <div className="col-span-full mt-4 mb-12">
               <button
                 type="submit"
-                className="bg-purple cursor-pointer px-8 py-2 text-white"
+                className={`bg-purple rounded px-8 py-2 text-white ${
+                  loading ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+                }`}
                 disabled={loading}
               >
-                {loading ? "Sender..." : "Tilmeld"}
+                Tilmeld
               </button>
+              {loading && (
+                <div className="text-purple mt-2 flex items-center gap-2">
+                  <div className="border-purple h-4 w-4 animate-spin rounded-full border-2 border-t-transparent" />
+                  Sender...
+                </div>
+              )}
             </div>
           </>
         )}
@@ -168,7 +177,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
         {message && (
           <div
             className={`col-span-full mt-2 rounded p-2 ${
-              message.startsWith("Tak") ? "bg-neonGreen" : "bg-purple"
+              isError ? "bg-purple" : "bg-neonGreen"
             }`}
           >
             {message}
