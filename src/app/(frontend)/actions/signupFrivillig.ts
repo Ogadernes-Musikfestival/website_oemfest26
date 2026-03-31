@@ -1,7 +1,7 @@
 "use server";
 import { z } from "zod";
 
-export async function signupFrivillig(formData: FormData) {
+export async function signupFrivillig(prevState: any, formData: FormData) {
   const signupSchema = z.object({
     navn: z.string().min(2, "Navn skal være mindst 2 karakterer"),
     email: z.string().email("Ugyldig email"),
@@ -29,36 +29,48 @@ export async function signupFrivillig(formData: FormData) {
   const parsed = signupSchema.safeParse(data);
 
   if (!parsed.success) {
-    // Pick the first error message to show
     const firstError = Object.values(parsed.error.flatten().fieldErrors)
       .flat()
       .find(Boolean);
-    throw new Error(firstError || "Ugyldige data");
-  }
 
-  // 2️⃣ Send validated data to the external API
-  const res = await fetch("https://frivillige.vercel.app/api/external-signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.EXTERNAL_SIGNUP_API_KEY}`,
-    },
-    body: JSON.stringify(parsed.data),
-  });
-
-  const result = await res.json();
-
-  if (!res.ok) {
     return {
       success: false,
-      message: result.error || "Der skete en fejl ved tilmelding",
+      message: firstError || "Ugyldige data",
     };
   }
 
-  return {
-    success: true,
-    message:
-      result.message ||
-      "Tak! Din tilmelding er modtaget. Du vil modtage yderligere info om dagen på email.",
-  };
+  try {
+    const res = await fetch(
+      "https://frivillige.vercel.app/api/external-signup",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.EXTERNAL_SIGNUP_API_KEY}`,
+        },
+        body: JSON.stringify(parsed.data),
+      },
+    );
+
+    const result = await res.json();
+
+    if (!res.ok) {
+      return {
+        success: false,
+        message: result.error || "Der skete en fejl ved tilmelding",
+      };
+    }
+
+    return {
+      success: true,
+      message:
+        result.message ||
+        "Tak! Din tilmelding er modtaget. Du vil modtage yderligere info om dagen på email.",
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: "Netværksfejl – prøv igen senere",
+    };
+  }
 }

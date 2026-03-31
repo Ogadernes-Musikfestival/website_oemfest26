@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useActionState } from "react";
 import { signupFrivillig } from "../actions/signupFrivillig";
 
 export const HEGN_SLOTS = [
@@ -26,10 +27,9 @@ interface SignupFormProps {
 const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
   const [selectedOmraade, setSelectedOmraade] = useState<string>("");
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [isError, setIsError] = useState(false);
+
+  // 🔥 useActionState
+  const [state, formAction, isPending] = useActionState(signupFrivillig, null);
 
   const handleOmraadeChange = (value: string) => {
     setSelectedOmraade(value);
@@ -39,32 +39,12 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
   return (
     <>
       <form
-        action={async (formData: FormData) => {
-          if (loading) return;
-          setLoading(true);
-
-          if (selectedOmraade === "HEGNVAGT" && selectedSlot) {
-            formData.set("slotId", selectedSlot);
-          }
-
-          const res = await signupFrivillig(formData);
-
-          setMessage(res.message);
-          setIsError(!res.success);
-
-          if (res.success) {
-            setSubmitted(true);
-
-            if (onSuccess) {
-              setTimeout(() => onSuccess(), 3000);
-            }
-          }
-
-          setLoading(false);
-        }}
-        className={`grid grid-cols-4 gap-4 md:gap-8 ${loading ? "pointer-events-none opacity-70" : ""}`}
+        action={formAction}
+        className={`grid grid-cols-4 gap-4 md:gap-8 ${
+          isPending ? "pointer-events-none opacity-70" : ""
+        }`}
       >
-        {!submitted && (
+        {!state?.success && (
           <>
             <input
               name="navn"
@@ -83,6 +63,9 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
               placeholder="Telefon"
               className="border-purple col-span-full border border-b-4 px-2 py-2 focus:scroll-mt-32 sm:col-span-2"
             />
+
+            {/* 👇 hidden slot input */}
+            <input type="hidden" name="slotId" value={selectedSlot ?? ""} />
 
             <div className="col-span-full mt-12">
               <h4 className="border-purple mb-4 border-b-4 text-xl">
@@ -110,6 +93,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
                   </label>
                 ))}
               </div>
+
               {selectedOmraade === "HEGNVAGT" && (
                 <div className="col-span-full mt-12">
                   <h4 className="border-purple mb-4 border-b-4 text-xl">
@@ -128,8 +112,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
                       >
                         <input
                           type="radio"
-                          name="slotId"
-                          value={slot.id}
+                          name="slotId_visual"
                           className="hidden"
                           checked={selectedSlot === slot.id}
                           onChange={() => setSelectedSlot(slot.id)}
@@ -158,13 +141,14 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
               <button
                 type="submit"
                 className={`bg-purple rounded px-8 py-2 text-white ${
-                  loading ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+                  isPending ? "cursor-not-allowed opacity-50" : "cursor-pointer"
                 }`}
-                disabled={loading}
+                disabled={isPending}
               >
                 Tilmeld
               </button>
-              {loading && (
+
+              {isPending && (
                 <div className="text-purple mt-2 flex items-center gap-2">
                   <div className="border-purple h-4 w-4 animate-spin rounded-full border-2 border-t-transparent" />
                   Sender...
@@ -174,13 +158,13 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
           </>
         )}
 
-        {message && (
+        {state?.message && (
           <div
             className={`col-span-full mt-2 rounded p-2 ${
-              isError ? "bg-purple" : "bg-neonGreen"
+              state.success ? "bg-neonGreen" : "bg-purple"
             }`}
           >
-            {message}
+            {state.message}
           </div>
         )}
       </form>
