@@ -1,6 +1,8 @@
 import React from "react";
 import AccordianFrivillig from "../components/AccordianFrivillig";
 import TriggerButton from "../components/TriggerButton";
+
+import TriggerButtonMobile from "../components/TriggerButtonMobile";
 import Header from "../components/Header";
 import { getFrivilligPage } from "../lib/getFrivilligPage";
 
@@ -31,7 +33,13 @@ const page = async () => {
               </div>
             ))}
 
-          <TriggerButton />
+          <div className="block lg:hidden">
+            <TriggerButtonMobile />
+          </div>
+
+          <div className="hidden lg:block">
+            <TriggerButton />
+          </div>
         </aside>
         <div className="col-span-full grid lg:col-span-3 lg:col-start-4">
           <AccordianFrivillig />
