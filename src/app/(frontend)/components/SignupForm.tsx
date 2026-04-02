@@ -101,25 +101,53 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
                   </h4>
 
                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                    {HEGN_SLOTS.map((slot) => (
-                      <label
-                        key={slot.id}
-                        className={`border-neonGreen flex cursor-pointer items-center rounded-md border-2 p-2 ${
-                          selectedSlot === slot.id
-                            ? "bg-neonGreen text-dark"
-                            : "hover:bg-neonGreen"
-                        }`}
-                      >
-                        <input
-                          type="radio"
-                          name="slotId_visual"
-                          className="hidden"
-                          checked={selectedSlot === slot.id}
-                          onChange={() => setSelectedSlot(slot.id)}
-                        />
-                        {slot.label}
-                      </label>
-                    ))}
+                    {HEGN_SLOTS.map((slot) => {
+                      const isDisabled = slot.id === "1";
+
+                      return (
+                        <label
+                          key={slot.id}
+                          style={
+                            isDisabled
+                              ? {
+                                  backgroundColor: "var(--color-grey)",
+                                  borderColor: "var(--color-grey)",
+                                }
+                              : {}
+                          }
+                          className={`border-neonGreen flex items-center justify-start gap-2 rounded-md border-2 p-2 ${
+                            isDisabled
+                              ? "pointer-events-none text-gray-600"
+                              : "hover:bg-neonGreen cursor-pointer"
+                          } ${
+                            selectedSlot === slot.id
+                              ? "bg-neonGreen text-dark"
+                              : ""
+                          }`}
+                        >
+                          <input
+                            type="radio"
+                            name="slotId_visual"
+                            className="hidden"
+                            disabled={isDisabled}
+                            checked={selectedSlot === slot.id}
+                            onChange={() => setSelectedSlot(slot.id)}
+                          />
+
+                          {/* Timeslot with optional strikethrough */}
+                          <span className={isDisabled ? "line-through" : ""}>
+                            {slot.label}
+                          </span>
+
+                          {/* "Besat" text immediately following the time */}
+                          {isDisabled && (
+                            <span className="text-[10px] font-bold uppercase opacity-70">
+                              (Besat)
+                            </span>
+                          )}
+                        </label>
+                      );
+                    })}
                   </div>
                 </div>
               )}
