@@ -9,7 +9,7 @@ const Header = async () => {
   const settings = await getSiteSettings();
 
   return (
-    <header className="flex h-12 justify-between md:h-[5svh]">
+    <header className="flex h-20 justify-between md:h-[5svh]">
       <p>{settings?.topNav?.left}</p>
 
       <div className="text-center">

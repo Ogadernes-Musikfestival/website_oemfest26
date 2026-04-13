@@ -14,7 +14,7 @@ const BandGallery = async () => {
       <h2 className="heading globalSpace text-center uppercase">
         Glæd dig til at opleve
       </h2>
-      <div className="grid grid-cols-2 gap-x-8 gap-y-20 xl:grid-cols-3 xl:gap-x-16 2xl:grid-cols-4">
+      <div className="grid gap-x-8 gap-y-20 md:grid-cols-2 xl:grid-cols-3 xl:gap-x-16 2xl:grid-cols-4">
         {bandData.map((band) => {
           const { url, alt } = (band.bandbillede as Media) ?? {};
           const instagram = band?.["social media"]?.instagram;
