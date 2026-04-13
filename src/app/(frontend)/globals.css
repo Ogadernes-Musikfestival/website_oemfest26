@@ -32,7 +32,20 @@ h2 {
   @apply text-3xl md:text-4xl lg:text-5xl;
 }
 
+h3 {
+  @apply text-xl md:text-2xl lg:text-3xl;
+}
+
 p {
   font-family: var(--font-spacemono), sans-serif;
   @apply text-base sm:text-lg md:text-xl;
+}
+
+.globalSpace {
+  padding-bottom: 5vw;
+}
+
+.sectionSpace {
+  padding-top: 10vw;
+  padding-bottom: 5vw;
 }

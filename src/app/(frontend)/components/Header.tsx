@@ -8,11 +8,9 @@ import { getSiteSettings } from "../lib/getSiteSettings";
 const Header = async () => {
   const settings = await getSiteSettings();
 
-  const logo = settings.logo;
-
   return (
-    <header className="flex h-[10svh] justify-between">
-      <p>9. maj</p>
+    <header className="flex h-[5svh] justify-between">
+      <p>{settings?.topNav?.left}</p>
 
       <div className="text-center">
         <Link href="/">
@@ -25,7 +23,8 @@ const Header = async () => {
           />
         </Link>
       </div>
-      <p>#ømfest</p>
+
+      <p>{settings?.topNav?.right}</p>
     </header>
   );
 };

@@ -11,20 +11,35 @@ export const SiteSettings: GlobalConfig = {
       type: "text",
     },
     {
-      name: "logo",
-      type: "upload",
-      relationTo: "media",
-      required: true,
+      name: "topNav",
+      type: "group",
+      label: "Top Nav",
+
+      fields: [
+        {
+          name: "left",
+          type: "text",
+          label: "Venstre Hjørne",
+        },
+        {
+          name: "logo",
+          type: "upload",
+          relationTo: "media",
+          required: true,
+        },
+
+        {
+          name: "right",
+          type: "text",
+          label: "Højre Hjørne",
+        },
+      ],
     },
 
     {
-      name: "hasktag",
-      type: "text",
-      label: "ØM hasktag",
-    },
-    {
-      name: "social media",
+      name: "socialMedia",
       type: "group",
+      label: "Social Media",
 
       fields: [
         {

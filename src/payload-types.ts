@@ -96,10 +96,12 @@ export interface Config {
   globals: {
     'site-settings': SiteSetting;
     'frivillig-page': FrivilligPage;
+    'home-page': HomePage;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'frivillig-page': FrivilligPageSelect<false> | FrivilligPageSelect<true>;
+    'home-page': HomePageSelect<false> | HomePageSelect<true>;
   };
   locale: null;
   user: User & {
@@ -433,9 +435,12 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface SiteSetting {
   id: string;
   siteName?: string | null;
-  logo: string | Media;
-  hasktag?: string | null;
-  'social media'?: {
+  topNav: {
+    left?: string | null;
+    logo: string | Media;
+    right?: string | null;
+  };
+  socialMedia?: {
     spotify?: string | null;
     instagram?: string | null;
     facebook?: string | null;
@@ -478,13 +483,50 @@ export interface FrivilligPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page".
+ */
+export interface HomePage {
+  id: string;
+  layout?:
+    | (
+        | {
+            heading?: string | null;
+            content: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'text';
+          }
+        | {
+            images?:
+              | {
+                  image: string | Media;
+                  caption?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'gallery';
+          }
+      )[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   siteName?: T;
-  logo?: T;
-  hasktag?: T;
-  'social media'?:
+  topNav?:
+    | T
+    | {
+        left?: T;
+        logo?: T;
+        right?: T;
+      };
+  socialMedia?:
     | T
     | {
         spotify?: T;
@@ -501,6 +543,40 @@ export interface SiteSettingsSelect<T extends boolean = true> {
  */
 export interface FrivilligPageSelect<T extends boolean = true> {
   heading?: T;
+  layout?:
+    | T
+    | {
+        text?:
+          | T
+          | {
+              heading?: T;
+              content?: T;
+              id?: T;
+              blockName?: T;
+            };
+        gallery?:
+          | T
+          | {
+              images?:
+                | T
+                | {
+                    image?: T;
+                    caption?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page_select".
+ */
+export interface HomePageSelect<T extends boolean = true> {
   layout?:
     | T
     | {

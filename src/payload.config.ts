@@ -15,6 +15,7 @@ import { Sponsor } from "./collections/Sponsor";
 
 import { SiteSettings } from "./globals/SiteSettings";
 import { FrivilligPage } from "./globals/FrivilligPage";
+import { HomePage } from "./globals/HomePage";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -40,8 +41,13 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+
+    livePreview: {
+      collections: ["Bands"],
+    },
   },
-  globals: [SiteSettings, FrivilligPage],
+
+  globals: [SiteSettings, FrivilligPage, HomePage],
   collections: [Users, Media, Bands, Frivillig, Sponsor],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
