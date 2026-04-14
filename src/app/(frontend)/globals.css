@@ -28,7 +28,8 @@
   @apply leading-none md:leading-[0.85];
 }
 
-h2 {
+h2,
+.h2 {
   @apply text-3xl md:text-4xl lg:text-5xl;
 }
 
@@ -47,5 +48,10 @@ p {
 
 .sectionSpace {
   padding-top: 10vw;
+  padding-bottom: 5vw;
+}
+
+.sectionSpaceSmall {
+  padding-top: 5vw;
   padding-bottom: 5vw;
 }

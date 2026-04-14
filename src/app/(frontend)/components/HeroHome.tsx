@@ -20,7 +20,10 @@ const HeroHome = async () => {
 
         <div className="z-10 -mb-20 text-white md:-mb-30">
           <h1 className="heading heading-responsive text-neonGreen uppercase">
-            <span className="text-white">Vi ses til</span> <br />
+            <span className="heading-responsive-small text-white">
+              Vi ses til
+            </span>{" "}
+            <br />
             Ømfest
           </h1>
         </div>
