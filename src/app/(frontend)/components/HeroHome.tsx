@@ -15,7 +15,7 @@ const HeroHome = async () => {
           src="https://pub-3183ab0415bd4d6f91c056caa432f027.r2.dev/oemfestival-media-storage/0bc8ff30-423c-4f14-9449-8428e185a614.jpeg"
           fill
           alt="oemfest fra scenen"
-          className="z-0 object-cover object-[50%_80%]"
+          className="z-0 aspect-video rounded-lg object-cover object-[50%_80%]"
         />
 
         <div className="z-10 -mb-20 text-white md:-mb-30">
