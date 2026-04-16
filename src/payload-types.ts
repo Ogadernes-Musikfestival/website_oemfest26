@@ -214,6 +214,7 @@ export interface Frivillige {
 export interface Sponsor {
   id: string;
   title?: string | null;
+  link?: string | null;
   type?: ('Sponsor' | 'Samarbejde') | null;
   logo?: (string | null) | Media;
   updatedAt: string;
@@ -383,6 +384,7 @@ export interface FrivilligeSelect<T extends boolean = true> {
  */
 export interface SponsorSelect<T extends boolean = true> {
   title?: T;
+  link?: T;
   type?: T;
   logo?: T;
   updatedAt?: T;

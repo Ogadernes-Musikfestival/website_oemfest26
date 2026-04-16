@@ -18,6 +18,13 @@ export const Sponsor: CollectionConfig = {
       label: "Firma",
     },
     {
+      name: "link",
+      type: "text",
+      admin: {
+        placeholder: "url",
+      },
+    },
+    {
       name: "type",
       type: "radio",
       options: ["Sponsor", "Samarbejde"],
