@@ -102,7 +102,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
 
                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                     {HEGN_SLOTS.map((slot) => {
-                      const disabledIds = ["1", "2"];
+                      const disabledIds = ["1", "2", "3"];
                       const isDisabled = disabledIds.includes(slot.id);
 
                       return (
