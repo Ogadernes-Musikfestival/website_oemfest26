@@ -15,7 +15,7 @@ export const HEGN_SLOTS = [
 
 const OMRAADE_LABELS: Record<string, string> = {
   HEGNVAGT: "Hegnsvært",
-  OPSAETNING: "Opstilling",
+
   NEDTAGNING: "Nedtagning",
   LEDIG: "Det er ligegyldigt, jeg vil bare være med",
 };
